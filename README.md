@@ -1,4 +1,9 @@
-# ![Open](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true)
+# Welcome to Web App Creator
+
+<p align="center">
+  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
+</p>
+
 # Web App Creator
 <table>
 <tr>
@@ -12,7 +17,12 @@
 
 ### Fiture
 
+<p align="center">
+  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true" alt="Features">
+</p>
+
 ![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true)
+
 ![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true)
 
 
