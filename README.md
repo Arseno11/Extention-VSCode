@@ -1,4 +1,4 @@
-# ![WebApp](https://iharsh234.github.io/WebApp/images/demo/demo_landing.JPG)
+# ![WebApp](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
 # WebApp
 <table>
 <tr>
