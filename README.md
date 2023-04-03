@@ -1,71 +1,83 @@
-# arseno README
+# ![WebApp](https://iharsh234.github.io/WebApp/images/demo/demo_landing.JPG)
+# WebApp
+<table>
+<tr>
+<td>
+  A webapp using Quandl API to display history of stock growth in a given period of time. It helps predict the growth of stocks from the  charts of stock performace in any period of time. It helps to judge stocks, with the principle of momentum investing, which returns 1% per month on average.
+</td>
+</tr>
+</table>
 
-This is the README for your extension "arseno". After writing up a brief description, we recommend including the following sections.
 
-## Features
+## Demo
+Here is a working live demo :  https://iharsh234.github.io/WebApp/
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
-For example if there is an image subfolder under your extension project workspace:
+## Site
 
-\!\[feature X\]\(images/feature-x.png\)
+### Landing Page
+Currently it is working on all NSE (India) Stocks, BSE (India) Stocks Symbol will be added soon.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![](https://iharsh234.github.io/WebApp/images/demo/web_app_face.JPG)
 
-## Requirements
+### Query Filled Form
+![](https://iharsh234.github.io/WebApp/images/demo/demo_query.JPG)
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### Charts
+![](https://iharsh234.github.io/WebApp/images/demo/demo_chart1.JPG)
+![](https://iharsh234.github.io/WebApp/images/demo/demo_chart2.JPG)
+![](https://iharsh234.github.io/WebApp/images/demo/demo_chart3.JPG)
 
-## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+## Mobile support
+The WebApp is compatible with devices of all sizes and all OS's, and consistent improvements are being made.
 
-For example:
+![](https://iharsh234.github.io/WebApp/images/demo/mobile.png)
 
-This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
 
-## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+## [Usage](https://iharsh234.github.io/WebApp/) 
 
-## Release Notes
+### Development
+Want to contribute? Great!
 
-Users appreciate release notes as you update your extension.
+To fix a bug or enhance an existing module, follow these steps:
 
-### 1.0.0
+- Fork the repo
+- Create a new branch (`git checkout -b improve-feature`)
+- Make the appropriate changes in the files
+- Add changes to reflect the changes made
+- Commit your changes (`git commit -am 'Improve feature'`)
+- Push to the branch (`git push origin improve-feature`)
+- Create a Pull Request 
 
-Initial release of ...
+### Bug / Feature Request
 
-### 1.0.1
+If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/iharsh234/WebApp/issues/new) by including your search query and the expected result.
 
-Fixed issue #.
+If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/iharsh234/WebApp/issues/new). Please include sample queries and their corresponding results.
 
-### 1.1.0
 
-Added features X, Y, and Z.
+## Built with 
 
----
+- [jQuery - Ajax](http://www.w3schools.com/jquery/jquery_ref_ajax.asp) - jQuery simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.
+- [Google Chart API](https://developers.google.com/chart/interactive/docs/quick_start) - Free , Rich Gallery , Customizable and Cross-browser compatible.
+- [Bootstrap](http://getbootstrap.com/) - Extensive list of components and  Bundled Javascript plugins.
 
-## Following extension guidelines
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+## To-do
+- Add BSE (India) Symbol to the current App.
+- Decide comparison models of Stocks. (suggestions are most welcome).
+- Another WebApp, capable of comparing at least 10 stocks.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+## Team
 
-## Working with Markdown
+[![Harsh Vijay](https://avatars1.githubusercontent.com/u/12688534?v=3&s=144)](https://github.com/iharsh234)  | [![Quandl.com](https://github.com/iharsh234/WebApp/blob/master/images/quandl.jpg)](https://www.quandl.com/)
+---|---
+[Harsh Vijay ](https://github.com/iharsh234) |[Quandl](https://www.quandl.com)
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+## [License](https://github.com/iharsh234/WebApp/blob/master/LICENSE.md)
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+MIT © [Harsh Vijay ](https://github.com/iharsh234)
 
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
