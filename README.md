@@ -7,6 +7,13 @@
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
 </p>
 
+  <a href="/LICENSE.md">
+    <img src="https://img.shields.io/github/license/OliverOverend/gym-simplifiedtetris?color=darkred&style=for-the-badge">
+  </a>
+  <a href="https://github.com/OliverOverend/gym-simplifiedtetris/commits/">
+    <img src="https://img.shields.io/github/last-commit/OliverOverend/gym-simplifiedtetris?style=for-the-badge">
+  </a>
+
 ## Web Framework Create
 
 <table>
