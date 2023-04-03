@@ -1,48 +1,62 @@
-# Welcome to Web App Creator
+<!-- CSS style -->
+<style>
+  table {
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: justify;
+    font-size: 16px;
+  }
+  table td:first-child {
+    width: 150px;
+    font-weight: bold;
+    background-color: #eee;
+  }
+  table td:last-child {
+    text-align: center;
+  }
+</style>
 
+<!-- Header and Image -->
 <p align="center">
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
 </p>
 
 # Web App Creator
+
 <table>
 <tr>
-<td>
-  This is a VS Code extension that allows you to create a new web application in a specific folder by selecting a programming language and a framework.
-  The extension currently supports PHP (Laravel, CodeIgniter, and Symfony) and JavaScript (React, Vue, Angular, and Next.js).
-</td>
+<td> Description </td>
+<td> This is a VS Code extension that allows you to create a new web application in a specific folder by selecting a programming language and a framework. The extension currently supports PHP (Laravel, CodeIgniter, and Symfony) and JavaScript (React, Vue, Angular, and Next.js). </td>
 </tr>
 </table>
 
 
-### Fiture
+### Features
 
 <p align="center">
-  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true" alt="Features">
+  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Features">
+  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true" alt="Features2">
 </p>
-
-![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true)
-
-![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true)
-
-
 
 
 ## Prerequisites
 
 Before using this extension, you need to make sure that the following dependencies are installed in your system:
 
-    For PHP projects:
-      - composer
-    For JavaScript projects:
-      - Node.js
-      - npm
-      - npx
-
-<!-- ![](https://iharsh234.github.io/WebApp/images/demo/mobile.png) -->
-
-
-
+<table>
+  <tr>
+    <td> For PHP projects: </td>
+    <td> composer </td>
+  </tr>
+  <tr>
+    <td> For JavaScript projects: </td>
+    <td> Node.js, npm, npx </td>
+  </tr>
+</table>
 
 ## Usage
 
@@ -58,8 +72,3 @@ Before using this extension, you need to make sure that the following dependenci
 ### Bug / Feature Request
 
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
-
-
-
-
-
