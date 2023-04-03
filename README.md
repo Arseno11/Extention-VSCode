@@ -12,8 +12,8 @@
 
 ### Fiture
 
-![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif)
 ![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
+![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif)
 
 
 
