@@ -70,5 +70,8 @@ Before using this extension, you need to make sure that the following dependenci
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
 
 
-<img src="https://activity-graph.herokuapp.com/graph?username=Arseno11&theme=github" alt="GitHub Activity Graph">
+<a href="https://github.com/Arseno11">
+  <img alt="Top Languages" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Arseno11&langs_count=8&layout=compact&theme=react&border_color=7F3FBF&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866" height="192px" width="49.5%">
+</a>
+
 
