@@ -1,4 +1,4 @@
-# ![Open](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
+# ![Open](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true)
 # Web App Creator
 <table>
 <tr>
@@ -12,8 +12,8 @@
 
 ### Fiture
 
-![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
-![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif)
+![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true)
+![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true)
 
 
 
