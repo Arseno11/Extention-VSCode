@@ -5,6 +5,14 @@
   "price": "free",
   "version": "1.1.0",
   "publisher": "MrShadow2511",
+
+
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arseno11/Extention-VSCode.git"
+  },
+
   "engines": {
     "vscode": "^1.77.0"
   },
