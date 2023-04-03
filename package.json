@@ -21,7 +21,7 @@
   "main": "./dist/extension.js",
   "contributes": {
     "icon": {
-        "path": "./images/icons.png"
+        "path": "./images/icons.svg"
     },
     "commands": [
       {
