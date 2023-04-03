@@ -23,7 +23,7 @@ Currently it is working on all NSE (India) Stocks, BSE (India) Stocks Symbol wil
 Before using this extension, you need to make sure that the following dependencies are installed in your system:
 
     For PHP projects:
-       composer ![] (https://getcomposer.org)
+      - [composer](http://www.w3schools.com/jquery/jquery_ref_ajax.asp)
     For JavaScript projects:
         Node.js
         npm
@@ -34,7 +34,15 @@ Before using this extension, you need to make sure that the following dependenci
 
 
 
-## [Usage](https://iharsh234.github.io/WebApp/) 
+## Usage
+
+[*]  Open VS Code and navigate to the folder where you want to create the new web application.
+[*]Press Ctrl+Shift+P (Windows, Linux) or Cmd+Shift+P (macOS) to open the command palette.
+[*] Type "Arseno: Create Web App" and select the command from the list.
+    Enter the name of the new folder when prompted.
+[*] Select the programming language from the list of available options.
+[*] Select the framework for the selected programming language from the list of available options.
+[*] Wait for the extension to create the new folder and initialize the project.
 
 ### Development
 Want to contribute? Great!
