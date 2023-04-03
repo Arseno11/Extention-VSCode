@@ -1,3 +1,7 @@
+<a href="https://komarev.com/ghpvc/?username=Arseno11">
+  <img align="right" src="https://komarev.com/ghpvc/?username=Arseno11&label=profile views&color=0e75b6&style=flat" alt="Profile visitor" />
+</a>
+
 <p align="center">
   <h2>🤖 Welcome To Web Framework Create 🤖</h2>
 </p>
@@ -64,3 +68,7 @@ Before using this extension, you need to make sure that the following dependenci
 ## Bug / Feature Request
 
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
+
+
+<img src="https://activity-graph.herokuapp.com/graph?username=Arseno11&theme=github" alt="GitHub Activity Graph">
+
