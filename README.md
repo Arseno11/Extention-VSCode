@@ -1,5 +1,5 @@
 <p align="center">
-<strong>🤖Welcome To Web Framework Create🤖</strong>
+<strong>🤖 Welcome To Web Framework Create 🤖</strong>
 </p>
 
 <!-- Header and Image -->
@@ -7,7 +7,7 @@
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
 </p>
 
-# Web App Creator
+## Web Framework Create
 
 <table>
 <tr>
@@ -17,7 +17,7 @@
 </table>
 
 
-## Featur
+## Feature
 
 <p align="center">
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Features">
