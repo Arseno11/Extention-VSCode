@@ -3,32 +3,32 @@
   "displayName": "Web Create Simple Using Framework PHP & JavaScript",
   "description": "This extension is used for those of you who want to create a website using a framework from the PHP & JavaScript programming languages ​​which will make it easier for you in web development.",
   "price": "free",
-  "version": "1.2.2",
+  "version": "1.2.5",
   "publisher": "MrShadow2511",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Arseno11/Extention-VSCode.git"
   },
-
   "engines": {
     "vscode": "^1.77.0"
   },
   "categories": [
-    "Programming Languages"
+    "Programming Languages",
+    "Education"
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
-    "icon": {
-        "path": "./images/icon.svg"
-    },
     "commands": [
       {
         "command": "arseno.WebAppCreate",
         "title": "Web Create Simple Using Framework PHP & JavaScript"
       }
-    ]
+    ],
+    "icon": {
+      "path": "./images/icon.svg"
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

@@ -18,7 +18,7 @@
 </table>
 
 
-### Featureso
+### Featur
 
 <p align="center">
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Features">
