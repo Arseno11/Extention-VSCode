@@ -1,25 +1,8 @@
-<!-- CSS style -->
-<style>
-  table {
-    border-collapse: collapse;
-    margin: 20px 0;
-  }
-  table td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    text-align: justify;
-    font-size: 16px;
-  }
-  table td:first-child {
-    width: 150px;
-    font-weight: bold;
-    background-color: #eee;
-  }
-  table td:last-child {
-    text-align: center;
-  }
-</style>
+<p align="center">
+<strong>Welcome To Web App Creator</strong>
+</p>
 
+<br>
 <!-- Header and Image -->
 <p align="center">
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
