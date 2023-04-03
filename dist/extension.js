@@ -52,7 +52,7 @@ const vscode = __webpack_require__(1);
 const child_process_1 = __webpack_require__(2);
 const frameworkOptions = {
     php: [`Laravel`, `CodeIgniter`, `Symfony`],
-    javascript: [`React`, `Vue`, `Angular`, `Next.js`, `Ember.js`, `Meteor.js`]
+    javascript: [`React`, `Vue`, `Angular`, `Next.js`]
 };
 function activate(context) {
     let disposable = vscode.commands.registerCommand(`arseno.WebAppCreate`, async () => {
@@ -65,150 +65,157 @@ function activate(context) {
         if (!folderName) {
             return;
         }
-        const languageSelection = await vscode.window.showQuickPick([`PHP`, `JavaScript`], {
-            placeHolder: `Select programming language`,
-        });
-        console.log(`Language selection:`, languageSelection);
-        if (!languageSelection) {
-            return;
-        }
-        const frameworkSelection = await vscode.window.showQuickPick(frameworkOptions[languageSelection.toLowerCase()], {
-            placeHolder: `Select ${languageSelection} framework`,
-        });
-        console.log(`Framework selection:`, frameworkSelection);
-        if (!frameworkSelection) {
-            // remove previous two selections from previousSelections array
-            return;
-        }
-        // Check if Composer is installed for PHP/Laravel projects
-        if (languageSelection.toLowerCase() === `php` && [`Laravel`, `CodeIgniter`, `Symfony`].includes(frameworkSelection.toLowerCase())) {
-            (0, child_process_1.exec)(`composer -v`, (error, stdout, stderr) => {
-                if (error || stderr) {
-                    const message = `Composer not found, do you want to install it?`;
-                    const options = [`Yes`, `No`];
-                    vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
-                        if (response === `Yes`) {
-                            (0, child_process_1.exec)(`php -r "copy(\`https://getcomposer.org/installer\`, \`composer-setup.php\`);" && php composer-setup.php && php -r "unlink(\`composer-setup.php\`);"`);
-                        }
-                    });
-                }
+        let previousSelections = [];
+        while (true) {
+            const languageSelection = await vscode.window.showQuickPick([...previousSelections, `PHP`, `JavaScript`, `Back`], {
+                placeHolder: `Select programming language`,
             });
-        }
-        // Check if npm, npx, and node are installed for JavaScript projects
-        if (languageSelection.toLowerCase() === `javascript` && [`react`, `vue`, `angular`, `next.js`, `ember.js`, `meteor.js`].includes(frameworkSelection.toLowerCase())) {
-            (0, child_process_1.exec)(`npm -v && npx -v && node -v`, (error, stdout, stderr) => {
-                if (error || stderr) {
-                    const missingPackages = [];
-                    if (error && error.message && error.message.includes(`npm`)) {
-                        missingPackages.push(`npm`);
-                    }
-                    if (error && error.message && error.message.includes(`npx`)) {
-                        missingPackages.push(`npx`);
-                    }
-                    if (error && error.message && error.message.includes(`node`)) {
-                        missingPackages.push(`node`);
-                    }
-                    const message = `${missingPackages.join(`, `)} not found, do you want to install them?`;
-                    const options = [`Yes`, `No`];
-                    vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
-                        if (response === `Yes`) {
-                            (0, child_process_1.exec)(`curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - && sudo apt-get install -y nodejs`, () => {
-                                (0, child_process_1.exec)(`npm install -g npm`);
-                                (0, child_process_1.exec)(`npm install -g npx`);
-                            });
-                        }
-                    });
-                }
+            console.log(`Language selection:`, languageSelection);
+            if (!languageSelection) {
+                return;
+            }
+            if (languageSelection === `Back`) {
+                previousSelections.pop();
+                continue;
+            }
+            const frameworkSelection = await vscode.window.showQuickPick([...frameworkOptions[languageSelection.toLowerCase()], `Back`], {
+                placeHolder: `Select ${languageSelection} framework`,
             });
-        }
-        // Create folder and initialize project
-        const terminal = vscode.window.createTerminal();
-        terminal.sendText(`mkdir ${folderName} && cd ${folderName}`);
-        if (languageSelection.toLowerCase() === `php`) {
-            switch (frameworkSelection.toLowerCase()) {
-                case `laravel`:
-                    try {
-                        terminal.sendText(`composer create-project --prefer-dist laravel/laravel ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `codeigniter`:
-                    try {
-                        terminal.sendText(`composer create-project codeigniter4/appstarter ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `symfony`:
-                    try {
-                        terminal.sendText(`composer create-project symfony/website-skeleton ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
+            console.log(`Framework selection:`, frameworkSelection);
+            if (!frameworkSelection) {
+                previousSelections.pop();
+                continue;
             }
-        }
-        else if (languageSelection.toLowerCase() === `javascript`) {
-            switch (frameworkSelection.toLowerCase()) {
-                case `react`:
-                    try {
-                        terminal.sendText(`npx create-react-app ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `vue`:
-                    try {
-                        // Install Vue CLI
-                        terminal.sendText(`npm install -g @vue/cli`);
-                        // Create new Vue project
-                        terminal.sendText(`vue create ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `angular`:
-                    try {
-                        terminal.sendText(`npm install -g @angular/cli`);
-                        terminal.sendText(`ng new ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `next.js`:
-                    try {
-                        terminal.sendText(`npx create-next-app ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `ember.js`:
-                    try {
-                        terminal.sendText(`ember new ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
-                case `meteor.js`:
-                    try {
-                        terminal.sendText(`meteor create ${folderName}`);
-                    }
-                    catch (err) {
-                        vscode.window.showErrorMessage(`Error: ${err.message}`);
-                    }
-                    break;
+            if (frameworkSelection === `Back`) {
+                continue;
             }
+            previousSelections.push(languageSelection);
+            previousSelections.push(frameworkSelection);
+            // Check if Composer is installed for PHP/Laravel projects
+            if (languageSelection.toLowerCase() === `php` && [`Laravel`, `CodeIgniter`, `Symfony`].includes(frameworkSelection.toLowerCase())) {
+                (0, child_process_1.exec)(`composer -v`, (error, stdout, stderr) => {
+                    if (error || stderr) {
+                        const message = `Composer not found, do you want to install it?`;
+                        const options = [`Yes`, `No`];
+                        vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
+                            if (response === `Yes`) {
+                                (0, child_process_1.exec)(`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && php composer-setup.php && php -r "unlink('composer-setup.php');"`, (error, stdout, stderr) => {
+                                    if (error || stderr) {
+                                        vscode.window.showErrorMessage(`Composer installation failed. Please install manually.`);
+                                    }
+                                    else {
+                                        vscode.window.showInformationMessage(`Composer successfully installed.`);
+                                    }
+                                });
+                            }
+                            else if (response === `Back`) {
+                                previousSelections.pop();
+                                previousSelections.pop();
+                            }
+                        });
+                    }
+                });
+            }
+            // Check if npm, npx, and node are installed for JavaScript projects
+            if (languageSelection.toLowerCase() === `javascript` && [`react`, `vue`, `angular`, `next.js`, `ember.js`, `meteor.js`].includes(frameworkSelection.toLowerCase())) {
+                (0, child_process_1.exec)(`npm -v && npx -v && node -v`, (error, stdout, stderr) => {
+                    if (error || stderr) {
+                        const missingPackages = [];
+                        if (error && error.message && error.message.includes(`npm`)) {
+                            missingPackages.push(`npm`);
+                        }
+                        if (error && error.message && error.message.includes(`npx`)) {
+                            missingPackages.push(`npx`);
+                        }
+                        if (error && error.message && error.message.includes(`node`)) {
+                            missingPackages.push(`node`);
+                        }
+                        const message = `${missingPackages.join(`, `)} not found, do you want to install them?`;
+                        const options = [`Yes`, `No`];
+                        vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
+                            if (response === `Yes`) {
+                                (0, child_process_1.exec)(`curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - && sudo apt-get install -y nodejs`, () => {
+                                    (0, child_process_1.exec)(`npm install -g npm`);
+                                    (0, child_process_1.exec)(`npm install -g npx`);
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            // Create folder and initialize project
+            const terminal = vscode.window.createTerminal();
+            terminal.sendText(`mkdir ${folderName} && cd ${folderName}`);
+            if (languageSelection.toLowerCase() === `php`) {
+                switch (frameworkSelection.toLowerCase()) {
+                    case `laravel`:
+                        try {
+                            terminal.sendText(`composer create-project --prefer-dist laravel/laravel ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                    case `codeigniter`:
+                        try {
+                            terminal.sendText(`composer create-project codeigniter4/appstarter ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                    case `symfony`:
+                        try {
+                            terminal.sendText(`composer create-project symfony/website-skeleton ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                }
+            }
+            else if (languageSelection.toLowerCase() === `javascript`) {
+                switch (frameworkSelection.toLowerCase()) {
+                    case `react`:
+                        try {
+                            terminal.sendText(`npx create-react-app ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                    case `vue`:
+                        try {
+                            // Install Vue CLI
+                            terminal.sendText(`npm install -g @vue/cli`);
+                            // Create new Vue project
+                            terminal.sendText(`vue create ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                    case `angular`:
+                        try {
+                            terminal.sendText(`npm install -g @angular/cli`);
+                            terminal.sendText(`ng new ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                    case `next.js`:
+                        try {
+                            terminal.sendText(`npx create-next-app ${folderName}`);
+                        }
+                        catch (err) {
+                            vscode.window.showErrorMessage(`Error: ${err.message}`);
+                        }
+                        break;
+                }
+            }
+            terminal.show();
         }
-        terminal.show();
     });
     context.subscriptions.push(disposable);
 }

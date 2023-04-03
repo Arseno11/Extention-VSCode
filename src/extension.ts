@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 
 const frameworkOptions: { [key: string]: string[] } = {
   php: [`Laravel`, `CodeIgniter`, `Symfony`],
-  javascript: [`React`, `Vue`, `Angular`, `Next.js`, `Ember.js`, `Meteor.js`]
+  javascript: [`React`, `Vue`, `Angular`, `Next.js`]
 };
 
 export function activate(context: vscode.ExtensionContext) {
@@ -171,20 +171,6 @@ export function activate(context: vscode.ExtensionContext) {
           case `next.js`:
             try {
               terminal.sendText(`npx create-next-app ${folderName}`);
-            } catch (err: any) {
-              vscode.window.showErrorMessage(`Error: ${err.message}`);
-            }
-            break;
-          case `ember.js`:
-            try {
-              terminal.sendText(`ember new ${folderName}`);
-            } catch (err: any) {
-              vscode.window.showErrorMessage(`Error: ${err.message}`);
-            }
-            break;
-          case `meteor.js`:
-            try {
-              terminal.sendText(`meteor create ${folderName}`);
             } catch (err: any) {
               vscode.window.showErrorMessage(`Error: ${err.message}`);
             }
