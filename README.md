@@ -1,4 +1,4 @@
-# ![WebApp](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
+# ![Open](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
 # Web App Creator
 <table>
 <tr>
