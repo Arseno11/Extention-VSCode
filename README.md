@@ -33,11 +33,11 @@ Before using this extension, you need to make sure that the following dependenci
 <table>
   <tr>
     <td> For PHP projects: </td>
-    <td> composer </td>
+    <td><a href="https://getcomposer.org/">composer</a></td>
   </tr>
   <tr>
     <td> For JavaScript projects: </td>
-    <td> Node.js, npm, npx </td>
+    <td><a href="https://nodejs.org/">Node.js</a>, <a href="https://www.npmjs.com/">npm</a>, <a href="https://www.npmjs.com/package/npx">npx</a></td>
   </tr>
 </table>
 
