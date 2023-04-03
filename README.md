@@ -7,12 +7,14 @@
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
 </p>
 
+<p align="center">
   <a href="/LICENSE.md">
-    <img src="https://img.shields.io/github/license/OliverOverend/gym-simplifiedtetris?color=darkred&style=for-the-badge">
+    <img src="https://img.shields.io/github/license/Arseno11/Extention-VSCode?color=darkred&style=for-the-badge">
   </a>
-  <a href="https://github.com/OliverOverend/gym-simplifiedtetris/commits/">
-    <img src="https://img.shields.io/github/last-commit/OliverOverend/gym-simplifiedtetris?style=for-the-badge">
+  <a href="https://github.com/Arseno11/Extention-VSCode/commits/">
+    <img src="https://img.shields.io/github/last-commit/Arseno11/Extention-VSCode/HEAD?style=for-the-badge">
   </a>
+</p>
 
 ## Web Framework Create
 
