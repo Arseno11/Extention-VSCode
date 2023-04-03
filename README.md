@@ -1,8 +1,7 @@
 <p align="center">
-<strong>Welcome To Web App Creator</strong>
+<strong>🤖Welcome To Web Framework Create🤖</strong>
 </p>
 
-<br>
 <!-- Header and Image -->
 <p align="center">
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Open">
@@ -18,7 +17,7 @@
 </table>
 
 
-### Featur
+## Featur
 
 <p align="center">
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Features">
@@ -53,6 +52,6 @@ Before using this extension, you need to make sure that the following dependenci
 - Wait for the extension to create the new folder and initialize the project.
 
 
-### Bug / Feature Request
+## Bug / Feature Request
 
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
