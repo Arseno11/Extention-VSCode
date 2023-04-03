@@ -9,28 +9,25 @@
 </table>
 
 
-## Demo
-Here is a working live demo :  https://iharsh234.github.io/WebApp/
-
-
-## Site
-
-### Landing Page
+### Fiture
 Currently it is working on all NSE (India) Stocks, BSE (India) Stocks Symbol will be added soon.
 
-![](https://iharsh234.github.io/WebApp/images/demo/web_app_face.JPG)
-
-### Query Filled Form
-![](https://iharsh234.github.io/WebApp/images/demo/demo_query.JPG)
-
-### Charts
-![](https://iharsh234.github.io/WebApp/images/demo/demo_chart1.JPG)
-![](https://iharsh234.github.io/WebApp/images/demo/demo_chart2.JPG)
-![](https://iharsh234.github.io/WebApp/images/demo/demo_chart3.JPG)
+![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif)
+![](https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif)
 
 
-## Mobile support
-The WebApp is compatible with devices of all sizes and all OS's, and consistent improvements are being made.
+
+
+## Prerequisites
+
+Before using this extension, you need to make sure that the following dependencies are installed in your system:
+
+    For PHP projects:
+       composer ![] (https://getcomposer.org)
+    For JavaScript projects:
+        Node.js
+        npm
+        npx
 
 ![](https://iharsh234.github.io/WebApp/images/demo/mobile.png)
 
