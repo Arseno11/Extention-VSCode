@@ -1,7 +1,7 @@
 <a href="https://komarev.com/ghpvc/?username=Arseno11">
   <img align="right" src="https://komarev.com/ghpvc/?username=Arseno11&label=profile views&color=0e75b6&style=flat" alt="Profile visitor" />
 </a>
-
+<br>
 <p>
   <h2 align="center">🤖 Welcome To Web Framework Create 🤖</h2>
 </p>
@@ -66,13 +66,27 @@ Before using this extension, you need to make sure that the following dependenci
 
 ## Usage
 
-- Open VS Code and navigate to the folder where you want to create the new web application.
+- <h3>Open VS Code and navigate to the folder where you want to create the new web application.</h3>
+
+<a href="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif">
+    <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/usage1.gif?raw=true" alt="Features">
+  </a>
 - Press Ctrl+Shift+P (Windows, Linux) or Cmd+Shift+P (macOS) to open the command palette.
+
+<a href="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif">
+    <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/usage2.gif?raw=true" alt="Features">
+  </a>
 - Type "Arseno: Create Web App" and select the command from the list.
 - Enter the name of the new folder when prompted.
 - Select the programming language from the list of available options.
 - Select the framework for the selected programming language from the list of available options.
+<a href="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif">
+    <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/usage3.gif?raw=true" alt="Features">
+  </a>
 - Wait for the extension to create the new folder and initialize the project.
+<a href="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif">
+    <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/usage4.gif?raw=true" alt="Features">
+  </a>
 
 
 ## Bug / Feature Request
