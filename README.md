@@ -24,7 +24,9 @@
 
 <table>
 <tr>
-<td> Description </td>
+<th> Description </th>
+</tr>
+<tr>
 <td> This is a VS Code extension that allows you to create a new web application in a specific folder by selecting a programming language and a framework. The extension currently supports PHP (Laravel, CodeIgniter, and Symfony) and JavaScript (React, Vue, Angular, and Next.js). </td>
 </tr>
 </table>
@@ -33,20 +35,8 @@
 ## Feature
 
 - You can easily create a project with the framework you need for web developers.
-<img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Features">
-
 - There are frameworks from 2 programming languages ​​that you can choose according to your needs.
-- Automatically create a folder according to the name that has been entered without having to make a manual
-
-<img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true" alt="Features2">
-
-
-<p align="center">
-  
-  
-  <br>
-  
-</p>
+- Automatically create a folder according to the name that has been entered without having to make a manual.
 
 
 ## Prerequisites
