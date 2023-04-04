@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { exec } from 'child_process';
+import { filesize } from 'filesize';
 
 
 const frameworkOptions: { [key: string]: string[] } = {
@@ -7,7 +8,21 @@ const frameworkOptions: { [key: string]: string[] } = {
   javascript: [`React`, `Vue`, `Angular`, `Next.js`]
 };
 
+type FrameworkSizes = {
+  [key: string]: number;
+};
 
+const frameworkSizes: FrameworkSizes = {
+  laravel: 80 * 1024 * 1024,
+  codeigniter: 70 * 1024 * 1024,
+  symfony: 60 * 1024 * 1024,
+  react: 50 * 1024 * 1024,
+  vue: 40 * 1024 * 1024,
+  angular: 30 * 1024 * 1024,
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  'next.js': 20 * 1024 * 1024,
+};
+const fs = require('fs');
 
 export function activate(context: vscode.ExtensionContext) {
   // Create status bar item for loading animation
@@ -22,10 +37,16 @@ export function activate(context: vscode.ExtensionContext) {
     statusBarItem.show();
 
     const folderName = await vscode.window.showInputBox({
-      prompt: `Please enter a project name`,
+      prompt: `Please enter a folder name`,
       placeHolder: `MyWebApp`,
       validateInput: (value) => {
-        return !value ? 'Please enter a project name' : null;
+        if (!value) {
+          return 'Please enter a folder name';
+        } else if (fs.existsSync(value)) {
+          return 'Folder already exists, please enter a different name';
+        } else {
+          return null;
+        }
       },
     });
 
@@ -136,184 +157,105 @@ export function activate(context: vscode.ExtensionContext) {
           });
         }
 
-        // Create folder and initialize project
+        const driveLetter = 'D';
+        const drivespace = fs.statSync(`${driveLetter}:\\`).size;
+        const diskSpace = drivespace.free;
+
+        if (!(frameworkSelection.toLowerCase() in frameworkSizes)) {
+          vscode.window.showErrorMessage(`Error: Framework ${frameworkSelection} is not supported!`);
+          return;
+        }
+
+        const frameworkSizeBytes = frameworkSizes[frameworkSelection.toLowerCase()];
+        const frameworkSizeReadable = filesize(frameworkSizeBytes);
+
+
+        if (diskSpace < frameworkSizeBytes) {
+          vscode.window.showErrorMessage(`Error: Not enough disk space to install ${frameworkSelection}. Required: ${frameworkSizeReadable}`);
+          return;
+        }
+
         const terminal = vscode.window.createTerminal();
-        terminal.sendText(`mkdir ${folderName} && cd ${folderName}`);
+        async function installFramework(command: string, frameworkName: string) {
+
+
+          if (fs.existsSync(folderName)) {
+            await vscode.window.showErrorMessage(`Error: Folder ${folderName} already exists!`);
+            return;
+          }
+
+          terminal.sendText(`mkdir ${folderName} && cd ${folderName}`);
+          try {
+            await vscode.window.withProgress({
+              location: vscode.ProgressLocation.Notification,
+              title: `Installing ${frameworkName}...`,
+              cancellable: false
+            }, async (progress) => {
+              let increment = 0;
+              const interval = setInterval(() => {
+                increment += 10;
+                if (increment > 80) {
+                  increment = 0;
+                }
+                progress.report({ increment });
+              }, 80);
+              await terminal.sendText(command);
+              clearInterval(interval);
+              progress.report({ increment: 80 });
+              vscode.window.showInformationMessage(`${frameworkName} created successfully!`);
+            });
+          } catch (err: any) {
+            vscode.window.showErrorMessage(`Error: ${err.message}`);
+          }
+        }
+
+
+        const projectName = await vscode.window.showInputBox({
+          prompt: `Please enter a project name`,
+          placeHolder: `MyProjectName`,
+          validateInput: (value) => {
+            if (!value) {
+              return 'Please enter a project name';
+            } else if (fs.existsSync(value)) {
+              return 'Folder already exists, please enter a different name';
+            } else {
+              return null;
+            }
+          },
+        });
+
+        console.log(`Project name:`, projectName);
+
+        if (!projectName) {
+          statusBarItem.hide();
+          return;
+        }
 
         if (languageSelection.toLowerCase() === `php`) {
           switch (frameworkSelection.toLowerCase()) {
             case `laravel`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`composer create-project --prefer-dist laravel/laravel ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+              await installFramework(`composer create-project --prefer-dist laravel/laravel ${projectName}`, `Laravel`);
               break;
             case `codeigniter`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`composer create-project codeigniter4/appstarter ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+              await installFramework(`composer create-project codeigniter4/appstarter ${projectName}`, `CodeIgniter`);
               break;
             case `symfony`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`composer create-project symfony/website-skeleton ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+              await installFramework(`composer create-project symfony/website-skeleton ${projectName}`, `Symfony`);
               break;
           }
         } else if (languageSelection.toLowerCase() === `javascript`) {
           switch (frameworkSelection.toLowerCase()) {
             case `react`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`npx create-react-app ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+              await installFramework(`npx create-react-app ${projectName}`, `React`);
               break;
             case `vue`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`npm install -g @vue/cli`);
-                  await terminal.sendText(`vue create ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+              await installFramework(`npm install -g @vue/cli && vue create ${projectName}`, `Vue`);
               break;
             case `angular`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`npm install -g @angular/cli`);
-                  await terminal.sendText(`ng new ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+              await installFramework(`npm install -g @angular/cli && ng new ${projectName}`, `Angular`);
               break;
-            case `next.js`:
-              try {
-                await vscode.window.withProgress({
-                  location: vscode.ProgressLocation.Notification,
-                  title: `Installing ${frameworkSelection}...`,
-                  cancellable: false
-                }, async (progress) => {
-                  let increment = 0;
-                  const interval = setInterval(() => {
-                    increment += 10;
-                    if (increment > 80) {
-                      increment = 0;
-                    }
-                    progress.report({ increment });
-                  }, 80);
-                  await terminal.sendText(`npx create-next-app ${folderName}`);
-                  clearInterval(interval);
-                  progress.report({ increment: 80 });
-                  vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
-                });
-              } catch (err: any) {
-                vscode.window.showErrorMessage(`Error: ${err.message}`);
-              }
+            case 'next.js':
+              await installFramework(`npx create-next-app ${projectName}`, `next.js`);
               break;
           }
         }
