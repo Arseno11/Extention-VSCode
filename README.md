@@ -16,8 +16,8 @@
     <img src="https://img.shields.io/github/license/Arseno11/Extention-VSCode?color=darkred&style=for-the-badge">
   </a>
   <a href="https://github.com/Arseno11/Extention-VSCode/commits/">
-    <img src="https://img.shields.io/github/last-update/Arseno11/Extention-VSCode/HEAD?style=for-the-badge">
-  </a>
+  <img src="https://img.shields.io/github/last-commit/Arseno11/Extention-VSCode/HEAD?label=last%20update&style=for-the-badge">
+</a>
 </p>
 
 ## Web Framework Create
