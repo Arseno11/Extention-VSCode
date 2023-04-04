@@ -33,8 +33,8 @@
 ## Feature
 
 
-[*] There are frameworks from 2 programming languages ​​that you can choose according to your needs.
-[*] Automatically create a folder according to the name that has been entered without having to make a manual
+- There are frameworks from 2 programming languages ​​that you can choose according to your needs.
+- Automatically create a folder according to the name that has been entered without having to make a manual
 
 
 <p align="center">
