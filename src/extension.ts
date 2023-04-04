@@ -149,9 +149,17 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
                   await terminal.sendText(`composer create-project --prefer-dist laravel/laravel ${folderName}`);
-                  progress.report({ increment: 10 });
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
@@ -165,9 +173,17 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
-                  terminal.sendText(`composer create-project codeigniter4/appstarter ${folderName}`);
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
+                  await terminal.sendText(`composer create-project codeigniter4/appstarter ${folderName}`);
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
@@ -181,9 +197,17 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
-                  terminal.sendText(`composer create-project symfony/website-skeleton ${folderName}`);
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
+                  await terminal.sendText(`composer create-project symfony/website-skeleton ${folderName}`);
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
@@ -200,9 +224,17 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
-                  terminal.sendText(`npx create-react-app ${folderName}`);
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
+                  await terminal.sendText(`npx create-react-app ${folderName}`);
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
@@ -216,10 +248,18 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
-                  terminal.sendText(`npm install -g @vue/cli`);
-                  terminal.sendText(`vue create ${folderName}`);
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
+                  await terminal.sendText(`npm install -g @vue/cli`);
+                  await terminal.sendText(`vue create ${folderName}`);
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
@@ -233,10 +273,18 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
-                  terminal.sendText(`npm install -g @angular/cli`);
-                  terminal.sendText(`ng new ${folderName}`);
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
+                  await terminal.sendText(`npm install -g @angular/cli`);
+                  await terminal.sendText(`ng new ${folderName}`);
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
@@ -250,9 +298,17 @@ export function activate(context: vscode.ExtensionContext) {
                   title: `Installing ${frameworkSelection}...`,
                   cancellable: false
                 }, async (progress) => {
-                  progress.report({ increment: 10 });
-                  terminal.sendText(`npx create-next-app ${folderName}`);
-                  progress.report({ increment: 10 });
+                  let increment = 0;
+                  const interval = setInterval(() => {
+                    increment += 10;
+                    if (increment > 80) {
+                      increment = 0;
+                    }
+                    progress.report({ increment });
+                  }, 80);
+                  await terminal.sendText(`npx create-next-app ${folderName}`);
+                  clearInterval(interval);
+                  progress.report({ increment: 80 });
                   vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                 });
               } catch (err: any) {
