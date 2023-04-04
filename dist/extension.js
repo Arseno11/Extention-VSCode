@@ -171,9 +171,9 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     await terminal.sendText(`composer create-project --prefer-dist laravel/laravel ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
@@ -188,9 +188,9 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     terminal.sendText(`composer create-project codeigniter4/appstarter ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
@@ -205,9 +205,9 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     terminal.sendText(`composer create-project symfony/website-skeleton ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
@@ -226,9 +226,9 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     terminal.sendText(`npx create-react-app ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
@@ -243,12 +243,10 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
-                                    // Install Vue CLI
+                                    progress.report({ increment: 10 });
                                     terminal.sendText(`npm install -g @vue/cli`);
-                                    // Create new Vue project
                                     terminal.sendText(`vue create ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
@@ -263,10 +261,10 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     terminal.sendText(`npm install -g @angular/cli`);
                                     terminal.sendText(`ng new ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
@@ -281,9 +279,9 @@ function activate(context) {
                                     title: `Installing ${frameworkSelection}...`,
                                     cancellable: false
                                 }, async (progress) => {
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     terminal.sendText(`npx create-next-app ${folderName}`);
-                                    progress.report({ increment: 100 });
+                                    progress.report({ increment: 10 });
                                     vscode.window.showInformationMessage(`${frameworkSelection} installed successfully!`);
                                 });
                             }
