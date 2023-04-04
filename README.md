@@ -2,8 +2,8 @@
   <img align="right" src="https://komarev.com/ghpvc/?username=Arseno11&label=profile views&color=0e75b6&style=flat" alt="Profile visitor" />
 </a>
 
-<p align="center">
-  <h2>🤖 Welcome To Web Framework Create 🤖</h2>
+<p>
+  <h2 align="center">🤖 Welcome To Web Framework Create 🤖</h2>
 </p>
 
 <!-- Header and Image -->
