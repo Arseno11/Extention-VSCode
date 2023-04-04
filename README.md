@@ -8,7 +8,7 @@
 
 <!-- Header and Image -->
 <p align="center">
-  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/view.png?raw=true" alt="View">
+  <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/viewext.png?raw=true" alt="View">
 </p>
 
 <p align="center">
