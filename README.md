@@ -32,7 +32,13 @@
 
 ## Feature
 
+
+[*] There are frameworks from 2 programming languages ​​that you can choose according to your needs.
+[*] Automatically create a folder according to the name that has been entered without having to make a manual
+
+
 <p align="center">
+  You can easily create a project with the framework you need for web developers.
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/1.gif?raw=true" alt="Features">
   <br>
   <img src="https://github.com/Arseno11/Extention-VSCode/blob/main/assets/2.gif?raw=true" alt="Features2">
