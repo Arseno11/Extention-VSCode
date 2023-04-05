@@ -17,9 +17,7 @@
     "Programming Languages",
     "Education"
   ],
-  "activationEvents": [
-    
-  ],
+  "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
@@ -61,6 +59,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
-    "filesize": "^10.0.7"
+    "filesize": "^10.0.7",
+    "semver": "^7.3.8"
   }
 }

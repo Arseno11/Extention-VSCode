@@ -2,8 +2,12 @@ import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import { filesize } from 'filesize';
 import path = require('path');
+import { ExtensionContext, workspace, version as vsCodeVersion } from 'vscode';
+import * as semver from 'semver';
 
 const fs = require('fs');
+const extensionId = require('../package.json').name;
+const EXTENSION_ID = `${extensionId}`;
 
 const frameworkOptions: { [key: string]: string[] } = {
   php: [`Laravel`, `CodeIgniter`, `Symfony`],
@@ -27,6 +31,77 @@ const frameworkSizes: FrameworkSizes = {
 
 
 export function activate(context: vscode.ExtensionContext) {
+
+  checkForUpdate(context.globalState);
+
+  // Registrasi handler untuk event onDidChangeExtensions
+  context.subscriptions.push(vscode.extensions.onDidChange(() => {
+    // Cek versi terbaru saat ada perubahan pada ekstensi
+    checkForUpdate(context.globalState);
+  }));
+
+
+
+  // Fungsi untuk mengecek versi terbaru dan menampilkan notifikasi saat pertama kali membuka VS Code setelah ada update
+  async function checkForUpdate(globalState: vscode.Memento) {
+    const extension = vscode.extensions.getExtension(EXTENSION_ID);
+    if (!extension) {
+      return; // kembalikan dari fungsi jika extension tidak ditemukan
+    }
+
+    const latestVersion = await getLatestVersion(extension.packageJSON.version);
+
+    // Bandingkan versi terbaru dengan versi saat ini
+    if (latestVersion && semver.gt(latestVersion, extension.packageJSON.version)) {
+      const hasShownUpdateNotification = globalState.get('hasShownUpdateNotification');
+
+      // Tampilkan notifikasi hanya jika belum pernah ditampilkan sebelumnya
+      if (!hasShownUpdateNotification) {
+        vscode.window.showInformationMessage(`My Extension has been updated to version ${latestVersion}. Please check the release notes for more information.`, 'View Release Notes')
+          .then((selection) => {
+            if (selection === 'View Release Notes') {
+              vscode.env.openExternal(vscode.Uri.parse(extension.packageJSON.homepage));
+            }
+          });
+        // Set hasShownUpdateNotification ke true agar notifikasi tidak muncul lagi
+        globalState.update('hasShownUpdateNotification', true);
+      }
+    }
+  }
+
+  // Fungsi untuk mendapatkan versi terbaru dari server
+  async function getLatestVersion(currentVersion: string): Promise<string> {
+    try {
+      const response = await workspace.fs.readDirectory(vscode.Uri.parse('http://myserver.com/extension_versions'));
+      const versionRegex = /^(\d+)\.(\d+)\.(\d+)$/;
+
+      // Cari versi terbaru yang lebih besar dari versi saat ini
+      let latestVersion: string = currentVersion; // ubah nilai default
+      for (const [fileName, fileType] of response) {
+        if (fileType === vscode.FileType.File) {
+          const match = versionRegex.exec(fileName);
+          if (match) {
+            const version = match[0];
+            if (semver.gt(version, currentVersion)) {
+              if (!latestVersion || semver.gt(version, latestVersion)) {
+                latestVersion = version;
+              }
+            }
+          }
+        }
+      }
+      return latestVersion;
+    } catch (error) {
+      console.error(error);
+      return currentVersion; // ubah nilai yang dikembalikan ke nilai default
+    }
+  }
+
+
+  const extensionName = require('../package.json').name;
+  console.log(`Congratulations, your extension "${extensionName}" is now active!`);
+
+
   // Create status bar item for loading animation
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
   statusBarItem.text = "$(sync~spin) Creating Web App...";
@@ -114,18 +189,32 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (!projectName) { // Check if projectName is empty or cancelled
           vscode.window.showErrorMessage(`Do you want to exit?😢`);
-          const result = await vscode.window.showQuickPick(['Yes', 'No'], {
-            placeHolder: 'Do you want to exit?',
-          });
-          if (result === 'Yes') {
-            vscode.window.showInformationMessage(`You have exited the extension. 👋`);
-            statusBarItem.hide();
-            return;
-          } else if (result === 'No') {
-            vscode.window.showInformationMessage(`Welcome Back. 🤗`);
-            return await vscode.commands.executeCommand('arseno.WebAppCreate');
-          }
 
+          await vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: 'Waiting for user input',
+            cancellable: false
+          }, async (progress) => {
+            // Update progress bar
+            progress.report({ increment: 0 });
+
+            // Wait for the user to make a choice
+            const result = await vscode.window.showQuickPick(['Yes', 'No'], {
+              placeHolder: 'Do you want to exit?',
+            });
+
+            // Update progress bar
+            progress.report({ increment: 100 });
+
+            if (result === 'Yes') {
+              vscode.window.showInformationMessage(`See you again. 👋`);
+              statusBarItem.hide();
+              return;
+            } else if (result === 'No') {
+              vscode.window.showInformationMessage(`Welcome Back. 🤗`);
+              return await vscode.commands.executeCommand('arseno.WebAppCreate');
+            }
+          });
         }
 
         previousSelections.push(languageSelection);
