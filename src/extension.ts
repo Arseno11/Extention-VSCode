@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import { filesize } from 'filesize';
+import path = require('path');
 
 
 const frameworkOptions: { [key: string]: string[] } = {
@@ -26,7 +27,7 @@ const fs = require('fs');
 
 export function activate(context: vscode.ExtensionContext) {
   // Create status bar item for loading animation
-  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 0);
+  const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
   statusBarItem.text = "$(sync~spin) Creating Web App...";
   context.subscriptions.push(statusBarItem);
 
@@ -95,6 +96,37 @@ export function activate(context: vscode.ExtensionContext) {
           continue;
         }
 
+        const projectName = await vscode.window.showInputBox({
+          prompt: `Please enter a project name`,
+          placeHolder: `MyProjectName`,
+          validateInput: (value) => {
+            if (!value) {
+              return 'Please enter a project name';
+            } else {
+              return null;
+            }
+          },
+          ignoreFocusOut: true // prevent input box from closing on focus out
+        });
+
+        console.log(`Project name:`, projectName);
+
+        if (!projectName) { // Check if projectName is empty or cancelled
+          vscode.window.showErrorMessage(`Do you want to exit?😢`);
+          const result = await vscode.window.showQuickPick(['Yes', 'No'], {
+            placeHolder: 'Do you want to exit?',
+          });
+          if (result === 'Yes') {
+            vscode.window.showInformationMessage(`You have exited the extension. 👋`);
+            statusBarItem.hide();
+            return;
+          } else if (result === 'No') {
+            vscode.window.showInformationMessage(`Welcome Back. 🤗`);
+            return await vscode.commands.executeCommand('arseno.WebAppCreate');
+          }
+
+        }
+
         previousSelections.push(languageSelection);
         previousSelections.push(frameworkSelection);
 
@@ -157,9 +189,22 @@ export function activate(context: vscode.ExtensionContext) {
           });
         }
 
-        const driveLetter = 'D';
-        const drivespace = fs.statSync(`${driveLetter}:\\`).size;
-        const diskSpace = drivespace.free;
+
+
+        // Mendapatkan path folder saat ini
+        const folderPath = path.resolve(__dirname);
+
+        // Mendapatkan drive letter dari folder saat ini
+        const rootPath = path.parse(folderPath).root;
+        const driveLetter = rootPath.slice(0, -1);
+
+        // Mendapatkan informasi ruang disk dari drive letter
+        const drivespace = fs.statSync(`${driveLetter}\\`);
+        const totalDisk = drivespace.blocks * drivespace.blksize;
+        const freeDisk = drivespace.blocks * drivespace.bfree;
+
+        console.log(`Sisa ruang disk di drive ${driveLetter}: ${freeDisk} bytes`);
+
 
         if (!(frameworkSelection.toLowerCase() in frameworkSizes)) {
           vscode.window.showErrorMessage(`Error: Framework ${frameworkSelection} is not supported!`);
@@ -170,15 +215,13 @@ export function activate(context: vscode.ExtensionContext) {
         const frameworkSizeReadable = filesize(frameworkSizeBytes);
 
 
-        if (diskSpace < frameworkSizeBytes) {
+        if (freeDisk < frameworkSizeBytes) {
           vscode.window.showErrorMessage(`Error: Not enough disk space to install ${frameworkSelection}. Required: ${frameworkSizeReadable}`);
           return;
         }
 
         const terminal = vscode.window.createTerminal();
         async function installFramework(command: string, frameworkName: string) {
-
-
           if (fs.existsSync(folderName)) {
             await vscode.window.showErrorMessage(`Error: Folder ${folderName} already exists!`);
             return;
@@ -194,42 +237,23 @@ export function activate(context: vscode.ExtensionContext) {
               let increment = 0;
               const interval = setInterval(() => {
                 increment += 10;
-                if (increment > 80) {
+                if (increment > 60) {
                   increment = 0;
                 }
                 progress.report({ increment });
-              }, 80);
+              }, 60);
               await terminal.sendText(command);
               clearInterval(interval);
-              progress.report({ increment: 80 });
-              vscode.window.showInformationMessage(`${frameworkName} created successfully!`);
+              progress.report({ increment: 100 });
+              setTimeout(() => {
+                vscode.window.showInformationMessage(`${frameworkName} created successfully!`);
+              }, 2000); // tambahkan delay 1000 milidetik (1 detik) sebelum menampilkan pesan sukses
             });
           } catch (err: any) {
             vscode.window.showErrorMessage(`Error: ${err.message}`);
           }
         }
 
-
-        const projectName = await vscode.window.showInputBox({
-          prompt: `Please enter a project name`,
-          placeHolder: `MyProjectName`,
-          validateInput: (value) => {
-            if (!value) {
-              return 'Please enter a project name';
-            } else if (fs.existsSync(value)) {
-              return 'Folder already exists, please enter a different name';
-            } else {
-              return null;
-            }
-          },
-        });
-
-        console.log(`Project name:`, projectName);
-
-        if (!projectName) {
-          statusBarItem.hide();
-          return;
-        }
 
         if (languageSelection.toLowerCase() === `php`) {
           switch (frameworkSelection.toLowerCase()) {

@@ -3,7 +3,7 @@
   "displayName": "Simple Web Create Using Framework",
   "description": "This extension is used for those of you who want to create a website using a framework \n from the PHP & JavaScript programming languages ​​which will make it easier for you in web development.",
   "price": "free",
-  "version": "1.4.9",
+  "version": "1.5.2",
   "publisher": "MrShadow2511",
   "license": "MIT",
   "repository": {
@@ -27,7 +27,7 @@
       }
     ],
     "icon": {
-      "package": "./icon/icon.png"
+      "path": "./icon/icon.png"
     }
   },
   "scripts": {
