@@ -3,6 +3,7 @@ import { exec } from 'child_process';
 import { filesize } from 'filesize';
 import path = require('path');
 
+const fs = require('fs');
 
 const frameworkOptions: { [key: string]: string[] } = {
   php: [`Laravel`, `CodeIgniter`, `Symfony`],
@@ -23,7 +24,7 @@ const frameworkSizes: FrameworkSizes = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   'next.js': 20 * 1024 * 1024,
 };
-const fs = require('fs');
+
 
 export function activate(context: vscode.ExtensionContext) {
   // Create status bar item for loading animation
@@ -292,4 +293,6 @@ export function activate(context: vscode.ExtensionContext) {
     }
   });
   context.subscriptions.push(disposable);
+
+
 } 
