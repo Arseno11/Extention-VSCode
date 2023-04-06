@@ -48,7 +48,9 @@ Before using this extension, you need to make sure that the following dependenci
   </tr>
   <tr>
     <td><a href="https://getcomposer.org"><img src="https://img.shields.io/badge/Composer-C29019?style=for-the-badge&logo=composer&logoColor=white" alt="Composer"></a></td>
-    <td><a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"></a>, <a href="https://www.npmjs.com/"><img src="https://img.shields.io/badge/Npm-C53635?style=for-the-badge&logo=npm&logoColor=white" alt="npm"></a>, <a href="https://www.npmjs.com/package/npx"><img src="https://img.shields.io/badge/Npx-73AB5F?style=for-the-badge&logo=npx&logoColor=white" alt="npx"></a></td>
+    <td><a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"></a></td>
+    <td><a href="https://www.npmjs.com/"><img src="https://img.shields.io/badge/Npm-C53635?style=for-the-badge&logo=npm&logoColor=white" alt="npm"></a></td>
+    <td><a href="https://www.npmjs.com/package/npx"><img src="https://img.shields.io/badge/Npx-73AB5F?style=for-the-badge&logo=npx&logoColor=white" alt="npx"></a></td>
   </tr>
 </table>
 
