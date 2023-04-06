@@ -47,7 +47,7 @@ Before using this extension, you need to make sure that the following dependenci
     <th> For JavaScript projects: </th>
   </tr>
   <tr>
-    <td><a href="https://getcomposer.org/">composer</a></td>
+    <td>[![Composer][Composer.org]][Composer-url]</td>
     <td><a href="https://nodejs.org/">Node.js</a>, <a href="https://www.npmjs.com/">npm</a>, <a href="https://www.npmjs.com/package/npx">npx</a></td>
   </tr>
 </table>
@@ -94,7 +94,7 @@ Before using this extension, you need to make sure that the following dependenci
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
 
 
-* [![Composer][Composer.org]][Composer-url]
+* 
 * [![Node.js][Node.js]][Nodejs-url]
 * [![Npmjs][Npmjs]][Npmjs-url]
 * [![Npxjs][Npxjs]][Npxjs-url]
