@@ -94,11 +94,13 @@ Before using this extension, you need to make sure that the following dependenci
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
 
 
-* [![Composer][getcomposer.org]][Composer-url]
-* [![Node.js][Typescript.com]][Nodejs-url]
+* [![Composer][Composer.org]][Composer-url]
+* [![Node.js][Node.js]][Nodejs-url]
 <!-- * [![JavaScript][Javascript.com]][Javascript-url] -->
 
 
 
-[Composer-url]: https://img.shields.io/badge/Composer-C29019?style=for-the-badge&logo=composer&logoColor=white
-[Nodejs-url]: https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white
+[Composer.org]: https://img.shields.io/badge/Composer-C29019?style=for-the-badge&logo=composer&logoColor=white
+[Composer-url]: https://getcomposer.org
+[Node.js]: https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white
+[Nodejs-url]: https://nodejs.org
