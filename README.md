@@ -96,6 +96,8 @@ If you find a bug (the extension doesn't run or returns unwanted results), open 
 
 * [![Composer][Composer.org]][Composer-url]
 * [![Node.js][Node.js]][Nodejs-url]
+* [![Npmjs][Npmjs]][Npmjs-url]
+* [![Npxjs][Npxjs]][Npxjs-url]
 <!-- * [![JavaScript][Javascript.com]][Javascript-url] -->
 
 
@@ -104,3 +106,7 @@ If you find a bug (the extension doesn't run or returns unwanted results), open 
 [Composer-url]: https://getcomposer.org
 [Node.js]: https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white
 [Nodejs-url]: https://nodejs.org
+[Npmjs]: https://img.shields.io/badge/Npm-C53635?style=for-the-badge&logo=npm&logoColor=white
+[Npmjs-url]: https://www.npmjs.com
+[Npxjs]: https://img.shields.io/badge/Npx-73AB5F?style=for-the-badge&logo=npx&logoColor=white
+[Npxjs-url]: https://www.npmjs.com/package/npx
