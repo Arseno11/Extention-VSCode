@@ -43,14 +43,17 @@ Before using this extension, you need to make sure that the following dependenci
 
 <table>
   <tr>
-    <th> For PHP projects: </th>
-    <th> For JavaScript projects: </th>
+    <th>For PHP projects:</th>
+    <th>For JavaScript projects:</th>
   </tr>
   <tr>
-    <td><a href="https://getcomposer.org/">composer</a></td>
-    <td><a href="https://nodejs.org/">Node.js</a>, <a href="https://www.npmjs.com/">npm</a>, <a href="https://www.npmjs.com/package/npx">npx</a></td>
+    <td><a href="https://getcomposer.org"><img src="https://img.shields.io/badge/Composer-C29019?style=for-the-badge&logo=composer&logoColor=white" alt="Composer"></a></td>
+    <td><a href="https://nodejs.org/"><img src="https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"></a>
+    <a href="https://www.npmjs.com/"><img src="https://img.shields.io/badge/Npm-C53635?style=for-the-badge&logo=npm&logoColor=white" alt="npm"></a>
+    <a href="https://www.npmjs.com/package/npx"><img src="https://img.shields.io/badge/Npx-73AB5F?style=for-the-badge&logo=npm&logoColor=white" alt="npx"></a></td>
   </tr>
 </table>
+
 
 ## Usage
 
@@ -94,3 +97,31 @@ Before using this extension, you need to make sure that the following dependenci
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
 
 
+<!-- * [![Composer][Composer.org]][Composer-url]
+* [![Node.js][Node.js]][Nodejs-url]
+* [![Npmjs][Npmjs]][Npmjs-url]
+* [![Npxjs][Npxjs]][Npxjs-url]
+<!-- * [![JavaScript][Javascript.com]][Javascript-url] -->
+
+
+
+<!-- [Composer.org]: https://img.shields.io/badge/Composer-C29019?style=for-the-badge&logo=composer&logoColor=white
+[Composer-url]: https://getcomposer.org
+[Node.js]: https://img.shields.io/badge/Node.js-73AB5F?style=for-the-badge&logo=node.js&logoColor=white
+[Nodejs-url]: https://nodejs.org
+[Npmjs]: https://img.shields.io/badge/Npm-C53635?style=for-the-badge&logo=npm&logoColor=white
+[Npmjs-url]: https://www.npmjs.com
+[Npxjs]: https://img.shields.io/badge/Npx-73AB5F?style=for-the-badge&logo=npx&logoColor=white
+[Npxjs-url]: https://www.npmjs.com/package/npx -->
+
+
+<!-- <table>
+  <tr>
+    <th> For PHP projects: </th>
+    <th> For JavaScript projects: </th>
+  </tr>
+  <tr>
+    <td>[![Composer][Composer.org]][Composer-url]</td>
+    <td><a href="https://nodejs.org/">Node.js</a>, <a href="https://www.npmjs.com/">npm</a>, <a href="https://www.npmjs.com/package/npx">npx</a></td>
+  </tr>
+</table> -->

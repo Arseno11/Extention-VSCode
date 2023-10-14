@@ -2,7 +2,12 @@ import * as vscode from 'vscode';
 import { exec } from 'child_process';
 import { filesize } from 'filesize';
 import path = require('path');
+import { ExtensionContext, workspace, version as vsCodeVersion } from 'vscode';
+import * as semver from 'semver';
 
+const fs = require('fs');
+const extensionId = require('../package.json').name;
+const EXTENSION_ID = `${extensionId}`;
 
 const frameworkOptions: { [key: string]: string[] } = {
   php: [`Laravel`, `CodeIgniter`, `Symfony`],
@@ -23,9 +28,14 @@ const frameworkSizes: FrameworkSizes = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   'next.js': 20 * 1024 * 1024,
 };
-const fs = require('fs');
+
 
 export function activate(context: vscode.ExtensionContext) {
+
+  const extensionName = require('../package.json').name;
+  console.log(`Congratulations, your extension "${extensionName}" is now active!`);
+
+
   // Create status bar item for loading animation
   const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
   statusBarItem.text = "$(sync~spin) Creating Web App...";
@@ -113,11 +123,13 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (!projectName) { // Check if projectName is empty or cancelled
           vscode.window.showErrorMessage(`Do you want to exit?😢`);
+
           const result = await vscode.window.showQuickPick(['Yes', 'No'], {
             placeHolder: 'Do you want to exit?',
           });
+
           if (result === 'Yes') {
-            vscode.window.showInformationMessage(`You have exited the extension. 👋`);
+            vscode.window.showInformationMessage(`See you again. 👋`);
             statusBarItem.hide();
             return;
           } else if (result === 'No') {
@@ -125,171 +137,171 @@ export function activate(context: vscode.ExtensionContext) {
             return await vscode.commands.executeCommand('arseno.WebAppCreate');
           }
 
-        }
+          previousSelections.push(languageSelection);
+          previousSelections.push(frameworkSelection);
 
-        previousSelections.push(languageSelection);
-        previousSelections.push(frameworkSelection);
+          // Check if Composer is installed for PHP/Laravel projects
+          if (languageSelection.toLowerCase() === `php` && [`Laravel`, `CodeIgniter`, `Symfony`].includes(frameworkSelection.toLowerCase())) {
+            exec(`composer -v`, (error, stdout, stderr) => {
+              if (error || stderr) {
+                const message = `Composer not found, do you want to install it?`;
+                const options = [`Yes`, `No`];
 
-        // Check if Composer is installed for PHP/Laravel projects
-        if (languageSelection.toLowerCase() === `php` && [`Laravel`, `CodeIgniter`, `Symfony`].includes(frameworkSelection.toLowerCase())) {
-          exec(`composer -v`, (error, stdout, stderr) => {
-            if (error || stderr) {
-              const message = `Composer not found, do you want to install it?`;
-              const options = [`Yes`, `No`];
+                vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
+                  if (response === `Yes`) {
+                    exec(`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && php composer-setup.php && php -r "unlink('composer-setup.php');"`
+                      , (error, stdout, stderr) => {
+                        if (error || stderr) {
+                          vscode.window.showErrorMessage(`Composer installation failed. Please install manually.`);
+                        } else {
+                          vscode.window.showInformationMessage(`Composer successfully installed.`);
+                        }
+                      });
+                  } else if (response === `Back`) {
+                    previousSelections.pop();
+                    previousSelections.pop();
+                  }
+                });
+              }
+            });
+          }
 
-              vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
-                if (response === `Yes`) {
-                  exec(`php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php -r "if (hash_file('sha384', 'composer-setup.php') === '55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && php composer-setup.php && php -r "unlink('composer-setup.php');"`
-                    , (error, stdout, stderr) => {
-                      if (error || stderr) {
-                        vscode.window.showErrorMessage(`Composer installation failed. Please install manually.`);
-                      } else {
-                        vscode.window.showInformationMessage(`Composer successfully installed.`);
-                      }
+          // Check if npm, npx, and node are installed for JavaScript projects
+          if (languageSelection.toLowerCase() === `javascript` && [`react`, `vue`, `angular`, `next.js`, `ember.js`, `meteor.js`].includes(frameworkSelection.toLowerCase())) {
+            exec(`npm -v && npx -v && node -v`, (error, stdout, stderr) => {
+              if (error || stderr) {
+                const missingPackages = [];
+
+                if (error && error.message && error.message.includes(`npm`)) {
+                  missingPackages.push(`npm`);
+                }
+
+                if (error && error.message && error.message.includes(`npx`)) {
+                  missingPackages.push(`npx`);
+                }
+
+                if (error && error.message && error.message.includes(`node`)) {
+                  missingPackages.push(`node`);
+                }
+
+                const message = `${missingPackages.join(`, `)} not found, do you want to install them?`;
+                const options = [`Yes`, `No`];
+
+                vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
+                  if (response === `Yes`) {
+                    exec(`curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - && sudo apt-get install -y nodejs`, () => {
+                      exec(`npm install -g npm`);
+                      exec(`npm install -g npx`);
                     });
-                } else if (response === `Back`) {
-                  previousSelections.pop();
-                  previousSelections.pop();
-                }
-              });
-            }
-          });
-        }
-
-        // Check if npm, npx, and node are installed for JavaScript projects
-        if (languageSelection.toLowerCase() === `javascript` && [`react`, `vue`, `angular`, `next.js`, `ember.js`, `meteor.js`].includes(frameworkSelection.toLowerCase())) {
-          exec(`npm -v && npx -v && node -v`, (error, stdout, stderr) => {
-            if (error || stderr) {
-              const missingPackages = [];
-
-              if (error && error.message && error.message.includes(`npm`)) {
-                missingPackages.push(`npm`);
+                  }
+                });
               }
-
-              if (error && error.message && error.message.includes(`npx`)) {
-                missingPackages.push(`npx`);
-              }
-
-              if (error && error.message && error.message.includes(`node`)) {
-                missingPackages.push(`node`);
-              }
-
-              const message = `${missingPackages.join(`, `)} not found, do you want to install them?`;
-              const options = [`Yes`, `No`];
-
-              vscode.window.showQuickPick(options, { placeHolder: message }).then((response) => {
-                if (response === `Yes`) {
-                  exec(`curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - && sudo apt-get install -y nodejs`, () => {
-                    exec(`npm install -g npm`);
-                    exec(`npm install -g npx`);
-                  });
-                }
-              });
-            }
-          });
-        }
+            });
+          }
 
 
 
-        // Mendapatkan path folder saat ini
-        const folderPath = path.resolve(__dirname);
+          // Mendapatkan path folder saat ini
+          const folderPath = path.resolve(__dirname);
 
-        // Mendapatkan drive letter dari folder saat ini
-        const rootPath = path.parse(folderPath).root;
-        const driveLetter = rootPath.slice(0, -1);
+          // Mendapatkan drive letter dari folder saat ini
+          const rootPath = path.parse(folderPath).root;
+          const driveLetter = rootPath.slice(0, -1);
 
-        // Mendapatkan informasi ruang disk dari drive letter
-        const drivespace = fs.statSync(`${driveLetter}\\`);
-        const totalDisk = drivespace.blocks * drivespace.blksize;
-        const freeDisk = drivespace.blocks * drivespace.bfree;
+          // Mendapatkan informasi ruang disk dari drive letter
+          const drivespace = fs.statSync(`${driveLetter}\\`);
+          const totalDisk = drivespace.blocks * drivespace.blksize;
+          const freeDisk = drivespace.blocks * drivespace.bfree;
 
-        console.log(`Sisa ruang disk di drive ${driveLetter}: ${freeDisk} bytes`);
-
-
-        if (!(frameworkSelection.toLowerCase() in frameworkSizes)) {
-          vscode.window.showErrorMessage(`Error: Framework ${frameworkSelection} is not supported!`);
-          return;
-        }
-
-        const frameworkSizeBytes = frameworkSizes[frameworkSelection.toLowerCase()];
-        const frameworkSizeReadable = filesize(frameworkSizeBytes);
+          console.log(`Sisa ruang disk di drive ${driveLetter}: ${freeDisk} bytes`);
 
 
-        if (freeDisk < frameworkSizeBytes) {
-          vscode.window.showErrorMessage(`Error: Not enough disk space to install ${frameworkSelection}. Required: ${frameworkSizeReadable}`);
-          return;
-        }
-
-        const terminal = vscode.window.createTerminal();
-        async function installFramework(command: string, frameworkName: string) {
-          if (fs.existsSync(folderName)) {
-            await vscode.window.showErrorMessage(`Error: Folder ${folderName} already exists!`);
+          if (!(frameworkSelection.toLowerCase() in frameworkSizes)) {
+            vscode.window.showErrorMessage(`Error: Framework ${frameworkSelection} is not supported!`);
             return;
           }
 
-          terminal.sendText(`mkdir ${folderName} && cd ${folderName}`);
-          try {
-            await vscode.window.withProgress({
-              location: vscode.ProgressLocation.Notification,
-              title: `Installing ${frameworkName}...`,
-              cancellable: false
-            }, async (progress) => {
-              let increment = 0;
-              const interval = setInterval(() => {
-                increment += 10;
-                if (increment > 60) {
-                  increment = 0;
-                }
-                progress.report({ increment });
-              }, 60);
-              await terminal.sendText(command);
-              clearInterval(interval);
-              progress.report({ increment: 100 });
-              setTimeout(() => {
-                vscode.window.showInformationMessage(`${frameworkName} created successfully!`);
-              }, 2000); // tambahkan delay 1000 milidetik (1 detik) sebelum menampilkan pesan sukses
-            });
-          } catch (err: any) {
-            vscode.window.showErrorMessage(`Error: ${err.message}`);
-          }
-        }
+          const frameworkSizeBytes = frameworkSizes[frameworkSelection.toLowerCase()];
+          const frameworkSizeReadable = filesize(frameworkSizeBytes);
 
 
-        if (languageSelection.toLowerCase() === `php`) {
-          switch (frameworkSelection.toLowerCase()) {
-            case `laravel`:
-              await installFramework(`composer create-project --prefer-dist laravel/laravel ${projectName}`, `Laravel`);
-              break;
-            case `codeigniter`:
-              await installFramework(`composer create-project codeigniter4/appstarter ${projectName}`, `CodeIgniter`);
-              break;
-            case `symfony`:
-              await installFramework(`composer create-project symfony/website-skeleton ${projectName}`, `Symfony`);
-              break;
+          if (freeDisk < frameworkSizeBytes) {
+            vscode.window.showErrorMessage(`Error: Not enough disk space to install ${frameworkSelection}. Required: ${frameworkSizeReadable}`);
+            return;
           }
-        } else if (languageSelection.toLowerCase() === `javascript`) {
-          switch (frameworkSelection.toLowerCase()) {
-            case `react`:
-              await installFramework(`npx create-react-app ${projectName}`, `React`);
-              break;
-            case `vue`:
-              await installFramework(`npm install -g @vue/cli && vue create ${projectName}`, `Vue`);
-              break;
-            case `angular`:
-              await installFramework(`npm install -g @angular/cli && ng new ${projectName}`, `Angular`);
-              break;
-            case 'next.js':
-              await installFramework(`npx create-next-app ${projectName}`, `next.js`);
-              break;
+
+          const terminal = vscode.window.createTerminal();
+          async function installFramework(command: string, frameworkName: string) {
+            if (fs.existsSync(folderName)) {
+              await vscode.window.showErrorMessage(`Error: Folder ${folderName} already exists!`);
+              return;
+            }
+
+            terminal.sendText(`mkdir ${folderName} && cd ${folderName}`);
+            try {
+              await vscode.window.withProgress({
+                location: vscode.ProgressLocation.Notification,
+                title: `Installing ${frameworkName}...`,
+                cancellable: false
+              }, async (progress) => {
+                let increment = 0;
+                const interval = setInterval(() => {
+                  increment += 10;
+                  if (increment > 60) {
+                    increment = 0;
+                  }
+                  progress.report({ increment });
+                }, 60);
+                await terminal.sendText(command);
+                clearInterval(interval);
+                progress.report({ increment: 100 });
+                setTimeout(() => {
+                  vscode.window.showInformationMessage(`${frameworkName} created successfully!`);
+                }, 2000); // tambahkan delay 1000 milidetik (1 detik) sebelum menampilkan pesan sukses
+              });
+            } catch (err: any) {
+              vscode.window.showErrorMessage(`Error: ${err.message}`);
+            }
           }
+
+
+          if (languageSelection.toLowerCase() === `php`) {
+            switch (frameworkSelection.toLowerCase()) {
+              case `laravel`:
+                await installFramework(`composer create-project --prefer-dist laravel/laravel ${projectName}`, `Laravel`);
+                break;
+              case `codeigniter`:
+                await installFramework(`composer create-project codeigniter4/appstarter ${projectName}`, `CodeIgniter`);
+                break;
+              case `symfony`:
+                await installFramework(`composer create-project symfony/website-skeleton ${projectName}`, `Symfony`);
+                break;
+            }
+          } else if (languageSelection.toLowerCase() === `javascript`) {
+            switch (frameworkSelection.toLowerCase()) {
+              case `react`:
+                await installFramework(`npx create-react-app ${projectName}`, `React`);
+                break;
+              case `vue`:
+                await installFramework(`npm install -g @vue/cli && vue create ${projectName}`, `Vue`);
+                break;
+              case `angular`:
+                await installFramework(`npm install -g @angular/cli && ng new ${projectName}`, `Angular`);
+                break;
+              case 'next.js':
+                await installFramework(`npx create-next-app ${projectName}`, `next.js`);
+                break;
+            }
+          }
+          terminal.show();
+          break;
         }
-        terminal.show();
-        break;
+        statusBarItem.hide();
+      } catch (err: any) {
+        vscode.window.showErrorMessage(`Error: ${err.message}`);
       }
-      statusBarItem.hide();
-    } catch (err: any) {
-      vscode.window.showErrorMessage(`Error: ${err.message}`);
-    }
-  });
+    });
   context.subscriptions.push(disposable);
+
+
 } 
