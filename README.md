@@ -53,6 +53,6 @@ Before using this extension, you need to make sure that the following dependenci
 - Wait for the extension to create the new folder and initialize the project.
 
 
-### Bug / Feature Request
+### Bug / Feature Request.
 
 If you find a bug (the extension doesn't run or returns unwanted results), open an issue [here](https://github.com/Arseno11/Extention-VSCode/issues) including your search request and expected results.
